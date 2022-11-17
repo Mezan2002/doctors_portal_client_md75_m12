@@ -1,9 +1,21 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext } from "react";
+import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 
 const MyAppointments = () => {
+  const { user } = useContext(AuthContext);
+  const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  const { data: bookings = [] } = useQuery({
+    queryKey: ["bookings", user?.email],
+    queryFn: async () => {
+      const res = await fetch(url);
+      const data = await res.json();
+      return data;
+    },
+  });
   return (
     <div>
-      <h3 className="text-4xl">My Appointments</h3>
+      <h3 className="text-4xl mb-10">My Appointments</h3>
       <div>
         <div className="overflow-x-auto">
           <table className="table w-full">
@@ -17,13 +29,15 @@ const MyAppointments = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="hover">
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>Desktop Support Technician</td>
-                <td>Purple</td>
-                <td>8.00pm - 9.00pm</td>
-              </tr>
+              {bookings.map((booking, idx) => (
+                <tr key={booking._id} className="hover">
+                  <th>{idx + 1}</th>
+                  <td>{booking.fullName}</td>
+                  <td>{booking.appointmentTakingFor}</td>
+                  <td>{booking.appointmentDate}</td>
+                  <td>{booking.timeOfAppointment}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
