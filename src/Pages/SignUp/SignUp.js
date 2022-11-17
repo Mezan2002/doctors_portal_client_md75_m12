@@ -30,17 +30,35 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user;
         toast.success("User Sign Up Successfully");
-        navigate("/");
+
         console.log(user);
         const userInforToUpdate = {
           displayName: data.name,
         };
+        saveUserInfo(data.name, data.email);
         updateUser(userInforToUpdate)
           .then(() => {})
           .catch((error) => console.log(error));
       })
       .catch((error) => setSignUpError(error.message));
   };
+
+  const saveUserInfo = (name, email) => {
+    const user = { name, email };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        navigate("/");
+        console.log(data);
+      });
+  };
+
   return (
     <div className="h-[800px] flex justify-center items-center">
       <div className="card w-[400px] shadow-xl">
