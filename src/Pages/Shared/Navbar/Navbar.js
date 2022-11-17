@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
+import { FaList } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -46,6 +47,15 @@ const Navbar = () => {
     <div>
       <div className="navbar bg-base-100">
         <div className="navbar-start">
+          <label
+            htmlFor="dashboardDrawer"
+            tabIndex={1}
+            className="btn btn-ghost lg:hidden"
+          >
+            <p>
+              <FaList></FaList>
+            </p>
+          </label>
           <Link className="btn btn-ghost normal-case text-xl">
             Doctors Portal
           </Link>
