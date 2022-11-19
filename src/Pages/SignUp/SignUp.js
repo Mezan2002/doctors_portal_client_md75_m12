@@ -3,11 +3,19 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
+import { useToken } from "../../Hooks/useToken/useToken";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { createUser, updateUser, googleLogin } = useContext(AuthContext);
   const [signUpError, setSignUpError] = useState("");
+  const [createUserEmail, setCreateUserEmail] = useState("");
+  const [token] = useToken(createUserEmail);
+
+  if (token) {
+    navigate("/");
+  }
+
   const {
     register,
     handleSubmit,
@@ -54,12 +62,12 @@ const SignUp = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        getUserToken(email);
+        setCreateUserEmail(email);
         console.log(data);
       });
   };
 
-  const getUserToken = (email) => {
+  /* const getUserToken = (email) => {
     fetch(`http://localhost:5000/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
@@ -69,7 +77,7 @@ const SignUp = () => {
           navigate("/");
         }
       });
-  };
+  }; */
 
   return (
     <div className="h-[800px] flex justify-center items-center">
