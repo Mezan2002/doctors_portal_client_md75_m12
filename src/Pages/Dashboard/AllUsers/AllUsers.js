@@ -21,7 +21,6 @@ const AllUsers = () => {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },
       },
-      body: JSON.stringify(),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -56,19 +55,20 @@ const AllUsers = () => {
                   <td>{user.email}</td>
                   <td>
                     {user.role === "admin" ? (
-                      <button
-                        onClick={() => handleMakeAdmin(user._id)}
-                        className="btn btn-xs text-white btn-disabled"
-                      >
-                        Admin Done
-                      </button>
+                      <>
+                        <button className="btn btn-xs text-white btn-disabled">
+                          Admin Done
+                        </button>
+                      </>
                     ) : (
-                      <button
-                        onClick={() => handleMakeAdmin(user._id)}
-                        className="btn btn-xs text-white btn-success"
-                      >
-                        Make Admin
-                      </button>
+                      <>
+                        <button
+                          onClick={() => handleMakeAdmin(user._id)}
+                          className="btn btn-xs text-white btn-success"
+                        >
+                          Make Admin
+                        </button>
+                      </>
                     )}
                   </td>
                   <td>
