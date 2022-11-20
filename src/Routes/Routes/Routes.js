@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../../Layout/DashboardLayout/DashboardLayout";
 import Main from "../../Layout/Main/Main";
 import Appointment from "../../Pages/Appointment/Appointment/Appointment";
+import AllUsers from "../../Pages/Dashboard/AllUsers/AllUsers";
 import MyAppointments from "../../Pages/Dashboard/MyAppointments/MyAppointments";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
@@ -50,7 +51,7 @@ const Routes = createBrowserRouter([
       },
       {
         path: "/dashboard/allUsers",
-        element: "",
+        element: <AllUsers></AllUsers>,
       },
     ],
   },
